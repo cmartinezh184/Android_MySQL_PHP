@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText codigo, descripcion;
     private Button agregar, modificar, eliminar, subirImagen, enlistar;
     private ListView listaProductos;
-    private final String url = "http://192.168.100.44/inventarios/";
+    protected static final String url = "http://192.168.100.44/Inventarios/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,7 +140,8 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    String objectString = object.toString();
+                    String objectString = object.optString("codigo", "N/A")
+                            + " - " + object.optString("descripcion", "N/A");
                     lista.add(objectString);
                 }
 

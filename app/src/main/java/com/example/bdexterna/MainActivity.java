@@ -124,10 +124,10 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private boolean cargarLista(){
+    private void cargarLista(){
         RequestQueue queue = Volley.newRequestQueue(this);
         final ArrayList<String> lista = new ArrayList<>();
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url + "enlistar.php", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, "http://54.227.173.39/Incidencias/EnlistarIncidencias.php", null, new Response.Listener<JSONArray>() {
 
             @Override
             public void onResponse(JSONArray response) {
@@ -140,8 +140,12 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    String objectString = object.optString("codigo", "N/A")
-                            + " - " + object.optString("descripcion", "N/A");
+                    String objectString = object.optString("incidencia_id", "N/A")
+                            + " - Detalle: " + object.optString("descripcion", "N/A")
+                            + " - LAT: " + object.optString("latitud", "N/A")
+                            + " - LONG: " + object.optString("longitud", "N/A")
+                            + " - Categ: " + object.optString("categoria", "N/A")
+                            + " - Empresa: " + object.optString("empresa", "N/A");
                     lista.add(objectString);
                 }
 
@@ -158,8 +162,6 @@ public class MainActivity extends AppCompatActivity {
         arrayAdapter.notifyDataSetChanged();
 
         queue.add(jsonArrayRequest);
-
-        return true;
     }
 
 }
